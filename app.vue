@@ -1,6 +1,8 @@
-<template class="my-app-dark">
-  <div>
-    <Header></Header>
-      <NuxtPage />   
-  </div>
+
+<template>
+  <NuxtLayout>
+    <v-app>
+      <NuxtPage />
+    </v-app>
+  </NuxtLayout>
 </template>

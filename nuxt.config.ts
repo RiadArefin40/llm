@@ -27,6 +27,9 @@ primevue: {
         }
     }
 }
-}
+},
+router: {
+  middleware: ['auth'],
+},
 
 })

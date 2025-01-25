@@ -1,46 +1,234 @@
 <template>
     <div class="p-4">
-        <h1 class="text-2xl font-medium text-primary pl-4">All Subscriptions Package</h1>
-        <div class="card-grid">
+        <div class="mb-4">
+            <img class="h-[180px] w-full" data-v-e28c7305="" src="https://stage-building-web.netlify.app/_nuxt/about-image.Dvft-ew6.gif" alt="">
+        </div>
+        <div class="balance">
+            <div>
+                <p>Today : <span class="text-white italic">{{ authUser?.subscription?.daily_income }}</span>  TK </p>
+            </div>
+            <div>
+                <p>Pending : 0TK </p>
+            </div>
 
-            <Card v-for="card in cards" :key="card.id">
+      </div>
+      <div class="my-4 px-6 py-2 flex justify-between button-section" >
+        <div @click = "handleCashOut" class="">
+            <img class="w-[40px]" src="https://cdn-icons-png.flaticon.com/512/6556/6556805.png" alt="Recharge free icon" title="Recharge free icon">
+             <p>CashOut</p>
+        </div>
+        <div class="">
+            <img class="w-[40px]" src="https://cdn-icons-png.flaticon.com/512/14946/14946653.png "  alt="" title="" >
+             <p>Contact</p>
+        </div>
+
+        <div>
+            <img class="w-[40px]" src="https://cdn-icons-png.flaticon.com/512/12708/12708046.png " alt="" title="" >
+            <p>Referral</p>
+        </div>
+        
+      </div>
+  
+        <div v-if="!authUser?.subscription?.plan_name" class="card-grid">
+            <Card v-for="card in packages" :key="card.id">
                 <template #title>
-                    <p class="font-bold"> Package Name: <span class="text-primary !text-[26px] !text-center">{{ card.title }}</span></p>
-                    
-                    <div class="flex items-center">
-                     <img alt="" data-src="https://download.ocms365.com/v2/JEETWIN/images/member/vippage/Bronze-icon.webp" src="https://download.ocms365.com/v2/JEETWIN/images/member/vippage/Bronze-icon.webp" lazy="loaded">
-                     
+                    <div class="flex justify-between">
+
+                        <p class="font-bold">  <span class="text-primary !text-[22px] !text-center" style="font-style: italic;">{{ card.plan_name }}</span></p>
+                        <button @click="handleInvest(card)" class="border invest-button">Invest</button>
+
                     </div>
+                   
+                  
                      
                 
                 </template>
                 <template #content>
-                    <p class="text-[18px] font-medium"><span> Daily Income : <span class="text-primary">{{ card.content.income }} Tk</span> </span></p>
-                    <div class="py-4">
-                        <div class="m-0 flex items-center">
-                            <i class="pi pi-indian-rupee !font-meduim mr-2"
-                                style="font-size: 1.5rem; color: goldenrod;"></i>
-                                <span class="font-medium mr-2">Package Price:
-                            </span>
-                            <span class="text-primary"> {{ card.content.price }} </span>
+                    <div class="flex">
+                        <div class="flex items-center w-[100px] ml-[-20px]">
+                         <img  alt="" data-src="https://download.ocms365.com/v2/JEETWIN/images/member/vippage/Bronze-icon.webp" src="https://download.ocms365.com/v2/JEETWIN/images/member/vippage/Bronze-icon.webp" lazy="loaded">
+                     
+                       </div>
+                       <div class="ml-4 mt-4">
+                        <p class="text-[16px]  font-medium"><i class="pi pi-indian-rupee !font-meduim mr-2"
+                            style="font-size: 1rem; color: goldenrod;"></i><span> Daily Income : <span class="text-primary">{{ card.daily_income }} Tk</span> </span></p>
+                        <div class="">
+                            <div class="m-0 flex items-center">
+                                <i class="pi pi-indian-rupee !font-meduim mr-2"
+                                    style="font-size: 1rem; color: goldenrod;"></i>
+                                    <span class="font-medium mr-2">Package Price: {{ card.price }}
+                                </span>
+                                <span class="text-primary">  </span>
+                            </div>
+                            <div class=" flex items-center">
+                                <i class="pi pi-calendar-clock !font-meduim mr-2"
+                                    style="font-size: 1rem; color: goldenrod;"></i>
+                                    <span class="font-medium mr-2">Validity: 100 Days
+                                </span>
+                                <span class="text-primary">  </span>
+                            
+                            </div>
                         </div>
-                        <div class="my-3 flex items-center">
-                            <i class="pi pi-calendar-clock !font-meduim mr-2"
-                                style="font-size: 1.5rem; color: goldenrod;"></i>
-                                <span class="font-medium mr-2">Package Validity:
-                            </span>
-                            <span class="text-primary">  {{ card.content.validity}}</span>
-                          
-                        </div>
+
+                       </div>
+                    
                     </div>
+      
                 </template>
             </Card>
+            <Dialog v-model:visible="visible" modal  :style="{ width: '22rem' }">
+                <div class="payment-page">
+      <div class="payment-container">        
+        <div class="payment-body">
+            <div class="amount-section">
+            <label for="plan">Package</label>
+            <input type="text" id="plan" v-model="planName" placeholder="Enter Package"  disabled/>
+          </div>
+          <div class="amount-section">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" v-model="amount" placeholder="Enter amount"  disabled/>
+          </div>
+          <div class="amount-section">
+            <label for="cashoutFrom">Cashout From</label>
+            <input type="number" id="cashoutFrom" v-model="cashoutFrom" placeholder="Enter Your Bkash Number" />
+          </div>
+          <div class="amount-section">
+            <label for="cashoutFrom">Transaction Id</label>
+            <input type="number" id="cashoutFrom" v-model="cashoutFrom" placeholder="Enter TransactionID" />
+          </div>
+          
+          <div class="payment-method">
+            <label for="method">Payment Method</label>
+            <select id="method" v-model="paymentMethod">
+              <option value="bkash">Bkash</option>
+              <!-- <option value="credit-card">Credit Card</option>
+              <option value="mobile-banking">Mobile Banking</option> -->
+            </select>
+          </div>
+  
+          <button @click="submitPayment">Pay Now</button>
         </div>
+      </div>
     </div>
+            </Dialog>
+            <Toast/>
+        </div>
+        <div v-else class="card-grid">
 
+            <Card>
+                <template #title>
+                    <div class="flex justify-between">
+
+                        <p class="font-bold">  <span class="text-primary !text-[22px] !text-center" style="font-style: italic;">{{ authUser?.subscription?.plan_name }}</span></p>
+                        <span v-if="authUser?.status !== 'active'" class="bg-primary text-white rounded px-2">InActive</span>
+                        <span v-else class="bg-primary text-white rounded px-2">Active</span>
+                        <!-- <button @click="handleInvest(card)" class="border invest-button">Invest</button> -->
+
+                    </div>
+                   
+                  
+                     
+                
+                </template>
+                <template #content>
+                    <div class="flex">
+                        <div class="flex items-center w-[100px] ml-[-20px]">
+                         <img  alt="" data-src="https://download.ocms365.com/v2/JEETWIN/images/member/vippage/Bronze-icon.webp" src="https://download.ocms365.com/v2/JEETWIN/images/member/vippage/Bronze-icon.webp" lazy="loaded">
+                     
+                       </div>
+                       <div class="ml-4 mt-4">
+                        <p class="text-[16px]  font-medium"><i class="pi pi-indian-rupee !font-meduim mr-2"
+                            style="font-size: 1rem; color: goldenrod;"></i><span> Daily Income : <span class="text-primary">{{ authUser?.subscription?.daily_income }} Tk</span> </span></p>
+                        <div class="">
+                            <div class="m-0 flex items-center">
+                                <i class="pi pi-indian-rupee !font-meduim mr-2"
+                                    style="font-size: 1rem; color: goldenrod;"></i>
+                                    <span class="font-medium mr-2">Package Price: {{ authUser?.subscription?.price }}
+                                </span>
+                                <span class="text-primary">  </span>
+                            </div>
+                            <div class=" flex items-center">
+                                <i class="pi pi-calendar-clock !font-meduim mr-2"
+                                    style="font-size: 1rem; color: goldenrod;"></i>
+                                    <span class="font-medium mr-2">Validity: 100 Days
+                                </span>
+                                <span class="text-primary">  </span>
+                            
+                            </div>
+                        </div>
+
+                       </div>
+                    
+                    </div>
+      
+                </template>
+            </Card>
+            
+        </div>
+
+        <Dialog v-model:visible="cashOutVisible" modal  :style="{ width: '22rem' }">
+                <div class="payment-page">
+      <div class="payment-container">        
+        <div class="payment-body">
+
+          <div class="amount-section">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" :value="authUser?.subscription?.daily_income" placeholder="Enter amount"  disabled/>
+          </div>
+          
+          <div class="amount-section">
+            <label for="cashoutFrom">Cashout To</label>
+            <input type="number" id="cashoutFrom" :value="authUser?.phone_number" placeholder="Enter Your Bkash Number" />
+          </div>          
+          <div class="payment-method">
+            <label for="method">Payment Method</label>
+            <select id="method" v-model="paymentMethod">
+              <option value="bkash">Bkash</option>
+              <!-- <option value="credit-card">Credit Card</option>
+              <option value="mobile-banking">Mobile Banking</option> -->
+            </select>
+          </div>
+  
+          <button @click="submitPaymentRequest"> Request Payment</button>
+        </div>
+      </div>
+    </div>
+            </Dialog>
+    </div>
+<Toast/>
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: 'auth',
+});
+import Dialog from 'primevue/dialog';
+const packages = ref([]);
+const visible = ref(false);
+const cashOutVisible = ref(false)
+const amount = ref( "");
+const planName = ref("");
+const cashoutFrom = ref("");
+const paymentMethod = ref("bkash")
+const authToken = ref(null)
+const authUser = ref(null)
+const router = useRouter();
+import { useToast } from 'primevue/usetoast';
+const toast = useToast();
+
+
+
+onMounted(()=>{
+    const token = localStorage.getItem('token')
+    const user = JSON.parse(localStorage.getItem('user'))
+    authToken.value = token
+    authUser.value = user
+    console.log(token, user)
+})
+
+const handleCashOut = async ()=>{
+    cashOutVisible.value = true
+}
 const cards = [
     {
         id: "1", title: "Bronze", content: {
@@ -72,6 +260,84 @@ const cards = [
     },
 
 ];
+
+const handleInvest = async (data) =>{
+    visible.value = true
+    amount.value = data.price
+    planName.value = data.plan_name
+}
+
+const  fetchSubscriptions = async()=> {
+    try {
+    const response = await fetch('https://llmbackend-production.up.railway.app/subscriptions', {
+      method: 'GET',
+      headers: {
+        // 'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    
+    const data = await response.json();
+    packages.value = data.subscriptions;
+  } catch (error) {
+    console.error('Error fetching subscriptions:', error);
+  }
+    }
+
+const submitPayment  = async () => {
+    const payload = {
+        plan_name: planName.value
+    }
+  try {
+    const response = await fetch(`https://llmbackend-production.up.railway.app/user/${authUser.value.id}/update-plan`, {
+      method: 'PATCH',
+      headers: {
+        // 'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify(payload)
+    });
+
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    
+    const data = await response.json();
+    visible.value = false
+    toast.add({ severity: 'info', summary: data.message, life: 3000 });
+  } catch (error) {
+    toast.add({ severity: 'info', summary: "Already Submitted, Wait For Confirmation", life: 3000 });
+    console.error('Error fetching subscriptions:', error);
+  }
+};
+
+const submitPaymentRequest = async ()=>{
+    const payload = {  
+        userId: authUser?.value?.id,
+        amount:Math.floor(authUser?.value?.subscription?.daily_income)
+        }
+  try {
+    const response = await fetch(`https://llmbackend-production.up.railway.app/transaction`, {
+      method: 'POST',
+      headers: {
+        // 'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify(payload)
+    });
+
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    
+    const data = await response.json();
+    cashOutVisible.value = false
+    toast.add({ severity: 'info', summary: data.message, life: 3000 });
+  } catch (error) {
+    toast.add({ severity: 'info', summary: "Already Submitted, Wait For Confirmation", life: 3000 });
+    console.error('Error fetching subscriptions:', error);
+  }
+}
+
+onMounted(fetchSubscriptions);
 </script>
 
 <style scoped>
@@ -79,6 +345,94 @@ const cards = [
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
-    margin: 1rem;
+    margin: .2rem;
+}
+.invest-button{
+    background:linear-gradient(to right, rgb(27, 172, 111), rgb(80, 231, 156));
+    color: white;
+    padding: 0px 20px;
+    border-radius: 4px;
+}
+.balance{
+    background: linear-gradient(to right, rgb(35, 204, 134), rgb(102, 255, 178));
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 28px ;
+    border-radius: 12px;
+    color: rgb(51, 49, 49);
+}
+.button-section{
+    background-color: rgb(235, 252, 246);
+}
+
+.payment-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
+.payment-container {
+  background-color: #ffffff; /* White background */
+  width: 90%;
+  max-width: 400px;
+  padding: 15px;
+  border-radius: 30px; /* Rounded corners for the container */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  position: relative;
+}
+
+.payment-header h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.payment-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.amount-section,
+.payment-method {
+  margin-bottom: 10px;
+}
+
+.amount-section input,
+.payment-method select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  padding: 12px;
+  background-color: #004b87; /* Bkash-like color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #003f6a; /* Darker blue on hover */
+}
+
+.payment-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  border-radius: 50%;
+  z-index: -1;
+  transform: scale(1.4);
 }
 </style>
