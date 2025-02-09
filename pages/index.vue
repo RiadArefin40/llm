@@ -470,7 +470,7 @@ onMounted(fetchSubscriptions);
     color: rgb(51, 49, 49);
 }
 .button-section{
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(255, 255, 255); */
 }
 
 .payment-page {
