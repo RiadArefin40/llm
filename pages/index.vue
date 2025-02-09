@@ -1,7 +1,7 @@
 <template>
   <div class="relative h-custom">
 
-    <div class="p-4">
+    <div class="p-4" >
         <div class="mb-4">
             <img class="h-[180px] w-full" data-v-e28c7305="" src="https://stage-building-web.netlify.app/_nuxt/about-image.Dvft-ew6.gif" alt="">
         </div>
@@ -18,7 +18,7 @@
             </div>
 
       </div> -->
-      <div class="my-2 border-2 border-cyan-400 shadow-lg p-2 bg-white px-6 py-2 flex justify-between button-section text-secondary" >
+      <div class="my-2 border-2 border-cyan-400 shadow-lg p-2  px-6 py-2 flex justify-between button-section text-secondary" >
         <div @click = "handleCashOut" class="relative">
           <span class="text-primary font-medium" style="margin-left: 40px; top:-10px; position: absolute;">{{ authUser?.subscription?.daily_income }}</span>
             <img class="w-[40px]" src="https://cdn-icons-png.flaticon.com/512/6556/6556805.png" alt="Recharge free icon" title="Recharge free icon">
@@ -177,7 +177,7 @@
             </Card>
             
         </div>
-        <div class="mt-4 mb-[60px]">
+        <div class="mt-4 mb-[60px]" >
           <div class="about-us flex justify-around">
             <div class="">
             <p class="text-sm">Official Partner</p>
