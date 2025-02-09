@@ -62,6 +62,7 @@
         </Dialog>
   </div>
 
+  <Toast />
 
 </template>
 
@@ -71,16 +72,18 @@
 import { useRouter } from 'vue-router';
 const agent = "01788139990"
 const router = useRouter();
-
+import { useToast } from 'primevue/usetoast';
+const toast = useToast();
 const cashOutVisible = ref(false)
 const profileModal = ref(false);
 const authUser = ref(null)
-
+const allViewed = ref(false);
 
 onMounted(()=>{
     const user = JSON.parse(localStorage.getItem('user'))
     authUser.value = user
     console.log('authUser.value',authUser.value)
+    allViewed.value = JSON.parse(localStorage.getItem("allViewed") || "false");
 })
 
 
@@ -94,11 +97,13 @@ const goHome = () =>{
   router.push('/')
 }
 
-const submitPaymentRequest = async ()=>{
-    const payload = {  
-        userId: authUser?.value?.id,
-        amount:Math.floor(authUser?.value?.subscription?.daily_income)
-        }
+const submitPaymentRequest = async () => {
+  if(allViewed.value){
+
+    const payload = {
+    userId: authUser?.value?.id,
+    amount: Math.floor(authUser?.value?.subscription?.daily_income)
+  }
   try {
     const response = await fetch(`https://llmbackend-production.up.railway.app/transaction`, {
       method: 'POST',
@@ -106,11 +111,11 @@ const submitPaymentRequest = async ()=>{
         // 'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body:JSON.stringify(payload)
+      body: JSON.stringify(payload)
     });
 
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    
+
     const data = await response.json();
     cashOutVisible.value = false
     toast.add({ severity: 'info', summary: data.message, life: 3000 });
@@ -118,6 +123,13 @@ const submitPaymentRequest = async ()=>{
     toast.add({ severity: 'info', summary: "Already Submitted, Wait For Confirmation", life: 3000 });
     console.error('Error fetching subscriptions:', error);
   }
+    
+  }
+
+  else{
+    toast.add({ severity: 'info', summary: "Please Complete your daily task", life: 3000 });
+  }
+
 }
 
 
