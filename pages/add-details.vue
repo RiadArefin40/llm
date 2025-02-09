@@ -28,7 +28,9 @@
 
 <script setup>
 import { useToast } from 'primevue/usetoast';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const toast = useToast();
 const value = ref(1); // Start from 1
 const duration = 10000; // 30 seconds
@@ -63,6 +65,10 @@ const startIncrement = () => {
       if(value.value == 100){
         isBlur.value = false
         toast.add({ severity: 'info', summary: 'Task Completed!', life: 3000 });
+        setTimeout(()=>{
+            router.back();
+        },500)
+        
       }// Increment the value by 1
     } else {
       clearInterval(intervalId); // Stop when the value reaches 100

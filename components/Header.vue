@@ -85,25 +85,25 @@ const items = ref([
         icon: 'pi pi-home',
         route:'/'
     },
-    // {
-    //     label: 'Tasks',
-    //     icon: 'pi pi-search',
-    //     badge: 3,
-    //     items: [
-    //         {
-    //             label: 'Adds',
-    //             icon: 'pi pi-bolt',
-    //             route:'/adds'
-    //         },
-    //         {
-    //             separator: true
-    //         },
-    //         {
-    //             label: 'Upcoming',
-    //             icon: 'pi pi-pencil',
-    //         }
-    //     ]
-    // }, 
+    {
+        label: 'Tasks',
+        icon: 'pi pi-search',
+        badge: 3,
+        items: [
+            {
+                label: 'Adds',
+                icon: 'pi pi-bolt',
+                route:'/adds'
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Upcoming',
+                icon: 'pi pi-pencil',
+            }
+        ]
+    },   
     {
         label: 'Sign Out',
         icon: 'pi pi-sign-out',
