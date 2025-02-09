@@ -98,7 +98,7 @@
           </div>
           <div class="amount-section">
             <label for="amount">CashOut Agent Number</label>
-            <input type="number" id="agent" v-model="agent" placeholder="Agent Number"  disabled/>
+            <input type="number" id="agent" :value="agent" placeholder="Agent Number"  disabled/>
           </div>
           <div class="amount-section">
             <label  for="cashoutFrom">Cashout From</label>
