@@ -57,7 +57,7 @@
   
           <div class="login-link-container">
             <p class="login-link-text">
-              Already have an account? <a href="/login" class="login-link">Log In</a>
+              Already have an account? <a @click="toLogin" class="login-link">Log In</a>
             </p>
           </div>
         </form>
@@ -68,6 +68,8 @@
   
   <script setup>
   import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
   definePageMeta({ layout: "secondary" });
   const name = ref('');
   const phone = ref('');
@@ -76,6 +78,10 @@
   import { useToast } from 'primevue/usetoast';
 
   const toast = useToast();
+
+  const toLogin = ()=>{
+     router.push('/login')
+  }
   const handleSignup = async () => {
 
     try {

@@ -42,7 +42,7 @@
   
           <div class="signup-link-container">
             <p class="signup-link-text">
-              Don't have an account? <a href="/register" class="signup-link">Sign Up</a>
+              Don't have an account? <a @click = "toRegister" class="signup-link">Sign Up</a>
             </p>
           </div>
         </form>
@@ -53,6 +53,8 @@
   
   <script setup>
   import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
   definePageMeta({ layout: "secondary" });
   const password = ref('');
   const phone = ref('');
@@ -60,6 +62,9 @@
   const toast = useToast();
 
   
+  const toRegister = ()=>{
+     router.push('/register')
+  }
   const handleLogin = async () => {
 
     try {
