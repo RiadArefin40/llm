@@ -84,33 +84,33 @@
       
                 </template>
             </Card>
-            <Dialog v-model:visible="visible" modal  :style="{ width: '22rem' }">
+            <Dialog v-model:visible="visible" modal  :style="{ width: '22rem' }" class="text-primary">
                 <div class="payment-page">
       <div class="payment-container">        
         <div class="payment-body">
             <div class="amount-section">
-            <label for="plan">Package</label>
+            <label class="text-primary" for="plan">Package</label>
             <input type="text" id="plan" v-model="planName" placeholder="Enter Package"  disabled/>
           </div>
           <div class="amount-section">
-            <label for="amount">Amount</label>
+            <label class="text-primary" for="amount">Amount</label>
             <input type="number" id="amount" v-model="amount" placeholder="Enter amount"  disabled/>
           </div>
           <div class="amount-section">
-            <label for="amount">CashOut Agent Number</label>
+            <label class="text-primary" for="amount">CashOut Agent Number</label>
             <input type="number" id="agent" :value="agent" placeholder="Agent Number"  disabled/>
           </div>
           <div class="amount-section">
-            <label  for="cashoutFrom">Cashout From</label>
+            <label class="text-primary"  for="cashoutFrom">Cashout From</label>
             <input type="number" id="cashoutFrom" :value="authUser?.phone_number" placeholder="Enter Your Bkash Number" />
           </div>
           <div class="amount-section">
-            <label for="cashoutFrom">Transaction Id</label>
+            <label class="text-primary" for="cashoutFrom">Transaction Id</label>
             <input type="number" id="cashoutFrom" v-model="cashoutFrom" placeholder="Enter TransactionID" />
           </div>
           
           <div class="payment-method">
-            <label for="method">Payment Method</label>
+            <label class="text-primary" for="method">Payment Method</label>
             <select id="method" v-model="paymentMethod">
               <option value="bkash">Bkash</option>
               <!-- <option value="credit-card">Credit Card</option>
@@ -205,16 +205,16 @@
         <div class="payment-body">
 
           <div class="amount-section">
-            <label for="amount">Amount</label>
+            <label class="text-primary" for="amount">Amount</label>
             <input type="number" id="amount" :value="authUser?.subscription?.daily_income" placeholder="Enter amount"  disabled/>
           </div>
           
           <div class="amount-section">
-            <label for="cashoutFrom">Cashout To</label>
+            <label class="text-primary" for="cashoutFrom">Cashout To</label>
             <input type="number" id="cashoutFrom" :value="authUser?.phone_number" placeholder="Enter Your Bkash Number" />
           </div>          
           <div class="payment-method">
-            <label for="method">Payment Method</label>
+            <label class="text-primary" for="method">Payment Method</label>
             <select id="method" v-model="paymentMethod">
               <option value="bkash">Bkash</option>
               <!-- <option value="credit-card">Credit Card</option>
