@@ -14,12 +14,12 @@
                 <template #content>
                     <div class="py-4">
                         <div class="py-4">
-                            <div class="m-0 flex items-center">
+                            <!-- <div class="m-0 flex items-center">
                                 <i class="pi pi-indian-rupee !font-medium mr-2"
                                     style="font-size: 1.5rem; color: goldenrod;"></i>
                                 <span class="font-medium mr-2">Total income:</span>
                                 <span class="text-primary">30tk</span>
-                            </div>
+                            </div> -->
                         </div>
                         <Button @click="handleDetails(card.id)" label="View Ad" severity="primary" />
                     </div>
