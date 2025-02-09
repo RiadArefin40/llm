@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative h-custom">
 
     <div class="p-4">
         <div class="mb-4">
@@ -542,5 +542,8 @@ button:hover {
   border-radius: 50%;
   z-index: -1;
   transform: scale(1.4);
+}
+.h-custom{
+  min-height: 93vh;
 }
 </style>
