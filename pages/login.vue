@@ -1,7 +1,11 @@
 <template>
     <div class="login-container">
       <div class="login-box">
-        <h1 class="login-title">Welcome Back</h1>
+        <div class="flex justify-center items-center">
+          <img style="width: 45px;" src="https://i.ibb.co.com/9kkzqCNj/dall.png" alt="dall" border="0">
+          <h1 class="login-title mt-4 ml-2">Welcome Back</h1>
+
+        </div>
         <p class="login-subtitle">Login to your account to continue</p>
         <form @submit.prevent="handleLogin">
           <div class="form-group">

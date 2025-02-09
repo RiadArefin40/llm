@@ -1,7 +1,12 @@
 <template>
     <div class="signup-container">
       <div class="signup-box">
-        <h1 class="signup-title">Create an Account</h1>
+        
+        <div class="flex justify-center items-center">
+          <img style="width: 45px;" src="https://i.ibb.co.com/9kkzqCNj/dall.png" alt="dall" border="0">
+          <h1 class="signup-title mt-4 ml-2">Create an Account</h1>
+
+        </div>
         <p class="signup-subtitle">Sign up to get started</p>
         <form @submit.prevent="handleSignup">
           <div class="form-group">

@@ -1,9 +1,15 @@
 <template>
+  <div class="relative">
+
     <div class="p-4">
         <div class="mb-4">
             <img class="h-[180px] w-full" data-v-e28c7305="" src="https://stage-building-web.netlify.app/_nuxt/about-image.Dvft-ew6.gif" alt="">
         </div>
-        <div class="balance">
+        <marquee style="color: orange; font-weight: bold; font-style: italic;">
+  🎉 10% Discount for All Packages & Get Double Referral Bonus Till 20 February! 🎉
+</marquee>
+
+        <!-- <div class="balance">
             <div>
                 <p>Today : <span class="text-white italic">{{ authUser?.subscription?.daily_income }}</span>  TK </p>
             </div>
@@ -11,18 +17,20 @@
                 <p>Pending : 0TK </p>
             </div>
 
-      </div>
-      <div class="my-4 px-6 py-2 flex justify-between button-section" >
-        <div @click = "handleCashOut" class="">
+      </div> -->
+      <div class="my-2 border-2 border-cyan-400 shadow-lg p-2 bg-white px-6 py-2 flex justify-between button-section text-secondary" >
+        <div @click = "handleCashOut" class="relative">
+          <span class="text-primary font-medium" style="margin-left: 40px; top:-10px; position: absolute;">{{ authUser?.subscription?.daily_income }}</span>
             <img class="w-[40px]" src="https://cdn-icons-png.flaticon.com/512/6556/6556805.png" alt="Recharge free icon" title="Recharge free icon">
              <p>CashOut</p>
         </div>
-        <div class="">
+
+        <div @click="showContact">
             <img class="w-[40px]" src="https://cdn-icons-png.flaticon.com/512/14946/14946653.png "  alt="" title="" >
              <p>Contact</p>
         </div>
 
-        <div>
+        <div @click="showReferral">
             <img class="w-[40px]" src="https://cdn-icons-png.flaticon.com/512/12708/12708046.png " alt="" title="" >
             <p>Referral</p>
         </div>
@@ -89,8 +97,12 @@
             <input type="number" id="amount" v-model="amount" placeholder="Enter amount"  disabled/>
           </div>
           <div class="amount-section">
-            <label for="cashoutFrom">Cashout From</label>
-            <input type="number" id="cashoutFrom" v-model="cashoutFrom" placeholder="Enter Your Bkash Number" />
+            <label for="amount">CashOut Agent Number</label>
+            <input type="number" id="agent" v-model="agent" placeholder="Agent Number"  disabled/>
+          </div>
+          <div class="amount-section">
+            <label  for="cashoutFrom">Cashout From</label>
+            <input type="number" id="cashoutFrom" :value="authUser?.phone_number" placeholder="Enter Your Bkash Number" />
           </div>
           <div class="amount-section">
             <label for="cashoutFrom">Transaction Id</label>
@@ -165,6 +177,27 @@
             </Card>
             
         </div>
+        <div class="mt-4 mb-[60px]">
+          <div class="about-us flex justify-around">
+            <div class="">
+            <p class="text-sm">Official Partner</p>
+            <img class="w-[80px]" alt="undefined" src="https://img.m156b.com/mb/h5/assets/images/footer/white/official-partner-heyvip.png?v=1738821416688&amp;source=mcdsrc" loading="lazy">
+          </div>
+          <div>
+            <img style="width: 55px;" src="https://i.ibb.co.com/9kkzqCNj/dall.png" alt="dall" border="0">
+          </div>
+          <div>
+            <p class="text-sm">Payment</p>
+            <img _ngcontent-serverapp-c575922473="" alt="pay22" src="https://img.m156b.com/mb/h5/assets/images/footer/white/pay22.png?v=1738821416688&amp;source=mcdsrc" loading="lazy" class="ng-star-inserted">
+          </div>
+
+          </div>
+
+          <p class="text-center text-sm italic mt-2">All right reserve @ ADLOK</p>
+          
+
+        </div>
+      
 
         <Dialog v-model:visible="cashOutVisible" modal  :style="{ width: '22rem' }">
                 <div class="payment-page">
@@ -194,8 +227,46 @@
       </div>
     </div>
             </Dialog>
+            <Dialog v-model:visible="refferCodeModal" modal header="Your Referral Code"  :style="{ width: '22rem' }">
+
+              <div class="bg-primary px-4 py-2">
+                {{ authUser.referral_code }}
+              </div>
+              </Dialog>
+
+              <Dialog v-model:visible="contactModal" modal header="Please join for support"  :style="{ width: '22rem' }">
+              
+              <div class=" px-4 py-2">
+                <img src="https://i.ibb.co.com/fzXqNDhM/image.png" alt="image" border="0">
+              </div>
+              </Dialog>
+              <Dialog v-model:visible="profileModal" modal header="User Details"  :style="{ width: '22rem' }">
+             
+              <div class=" px-4 py-2">
+                 <p> <span class="text-primary">Package Name :</span> {{ authUser?.subscription?.plan_name }}</p>
+                 <p><span class="text-primary">Total Income :</span>___</p>
+                 <p><span class="text-primary">Active Referral Count :</span>___</p>
+                 <p><span class="text-primary">Total Referral Income :</span>___</p>
+              </div>
+              </Dialog>
     </div>
+    <div class="balance-bottom">
+       
+       <div>
+         <img style="width: 30px;" src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png "  alt="" title="" class="img-small">
+       </div>
+       <div @click = "showProfile">
+       <img style="width: 30px;" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png " alt="" title="" class="img-small">
+     </div>
+       <div @click = "handleCashOut">
+         <img style="width: 30px;" src="https://cdn-icons-png.flaticon.com/512/925/925748.png " alt="" title="" class="img-small">
+       </div>
+
+ </div>
 <Toast/>
+
+  </div>
+    
 </template>
 
 <script setup>
@@ -215,6 +286,11 @@ const authUser = ref(null)
 const router = useRouter();
 import { useToast } from 'primevue/usetoast';
 const toast = useToast();
+const refferCodeModal =  ref(false);
+const contactModal =  ref(false);
+const profileModal =  ref(false);
+const refferCode = ref("")
+const agent = "01788139990"
 
 
 
@@ -226,8 +302,18 @@ onMounted(()=>{
     console.log(token, user)
 })
 
+const showReferral = () =>{
+  refferCodeModal.value = true;
+}
+
 const handleCashOut = async ()=>{
     cashOutVisible.value = true
+}
+const showContact = () =>{
+  contactModal.value = true;
+}
+const showProfile = () =>{
+  profileModal.value = true
 }
 const cards = [
     {
@@ -353,6 +439,28 @@ onMounted(fetchSubscriptions);
     padding: 0px 20px;
     border-radius: 4px;
 }
+.balance-bottom{
+    background: linear-gradient(to right, rgb(174, 227, 231), rgb(47, 208, 236));
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 28px ;
+    border-radius: 12px;
+    color: rgb(51, 49, 49);
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+/* .about-us{
+  background: linear-gradient(to right, rgb(174, 227, 231), rgb(47, 208, 236));
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 28px ;
+    border-radius: 12px;
+    color: rgb(51, 49, 49);
+    width: 100%;
+    margin-bottom: 300px;
+    margin-top: 20px;
+} */
 .balance{
     background: linear-gradient(to right, rgb(35, 204, 134), rgb(102, 255, 178));
     display: flex;
@@ -362,7 +470,7 @@ onMounted(fetchSubscriptions);
     color: rgb(51, 49, 49);
 }
 .button-section{
-    background-color: rgb(235, 252, 246);
+    background-color: rgb(255, 255, 255);
 }
 
 .payment-page {

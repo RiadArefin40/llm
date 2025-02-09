@@ -2,7 +2,8 @@
     <div class="card">
         <Menubar :model="items">
             <template #start>
-                <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                <img style="width: 45px;" src="https://i.ibb.co.com/9kkzqCNj/dall.png" alt="dall" border="0">
+             
                
 
             </template>
@@ -84,25 +85,25 @@ const items = ref([
         icon: 'pi pi-home',
         route:'/'
     },
-    {
-        label: 'Tasks',
-        icon: 'pi pi-search',
-        badge: 3,
-        items: [
-            {
-                label: 'Adds',
-                icon: 'pi pi-bolt',
-                route:'/adds'
-            },
-            {
-                separator: true
-            },
-            {
-                label: 'Upcoming',
-                icon: 'pi pi-pencil',
-            }
-        ]
-    },
+    // {
+    //     label: 'Tasks',
+    //     icon: 'pi pi-search',
+    //     badge: 3,
+    //     items: [
+    //         {
+    //             label: 'Adds',
+    //             icon: 'pi pi-bolt',
+    //             route:'/adds'
+    //         },
+    //         {
+    //             separator: true
+    //         },
+    //         {
+    //             label: 'Upcoming',
+    //             icon: 'pi pi-pencil',
+    //         }
+    //     ]
+    // }, 
     {
         label: 'Sign Out',
         icon: 'pi pi-sign-out',
