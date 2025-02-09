@@ -148,6 +148,6 @@ const submitPaymentRequest = async () => {
 }
 
 .custom-h{
-  min-height: 85vh;
+  min-height: 82vh;
 }
 </style>

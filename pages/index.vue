@@ -121,7 +121,7 @@
                 </div>
                 <div class="amount-section">
                   <label class="text-primary" for="cashoutFrom">Transaction Id</label>
-                  <input type="number" id="cashoutFrom" v-model="cashoutFrom" placeholder="Enter TransactionID" />
+                  <input type="text" id="cashoutFrom"  placeholder="Enter TransactionID" />
                 </div>
 
                 <div class="payment-method">
