@@ -193,7 +193,7 @@
 
           </div>
 
-          <p class="text-center text-sm italic mt-2">All right reserve @ ADLOK</p>
+          <p class="text-center text-sm italic mt-2">All right reserve @ ADLOK 2025</p>
           
 
         </div>
